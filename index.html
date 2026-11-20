@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f6f5f0" />
+  <title>Word Garden｜單字花園</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap');
+    :root{--ink:#183a32;--muted:#718079;--green:#3e755c;--lime:#d9ee9e;--paper:#fbfaf6;--line:#e9e8df;--coral:#f18f74;--shadow:0 18px 50px #1b33200c}
+    *{box-sizing:border-box} body{margin:0;background:#f6f5f0;color:var(--ink);font-family:'DM Sans','Noto Sans TC',sans-serif;min-height:100vh}
+    button{font:inherit;color:inherit;cursor:pointer} .shell{max-width:1120px;margin:auto;padding:26px 38px 48px}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:38px}.brand{display:flex;gap:11px;align-items:center;font-weight:800;letter-spacing:-.4px;font-size:18px}.logo{width:36px;height:36px;display:grid;place-items:center;background:var(--lime);border-radius:12px;font-size:20px}.brand small{display:block;color:#8a948d;font-weight:500;font-size:11px;letter-spacing:.7px;margin-top:1px}.top-right{display:flex;align-items:center;gap:12px;color:#66736b;font-size:13px}.streak{background:#fff;border:1px solid var(--line);padding:9px 13px;border-radius:99px;font-weight:700}.avatar{display:grid;place-items:center;background:#e8e8d9;border-radius:50%;width:36px;height:36px;font-size:19px}
+    .layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:48px}.sidebar{padding-top:6px}.side-label{text-transform:uppercase;letter-spacing:1.3px;font-size:10px;font-weight:800;color:#99a19b;margin:0 0 14px 11px}.nav{display:grid;gap:6px}.nav button{border:0;background:transparent;text-align:left;border-radius:12px;padding:12px 13px;display:flex;align-items:center;gap:12px;color:#718079;font-weight:600;font-size:13px}.nav button.active{background:#e8eddf;color:#315b47}.nav .icon{width:20px;text-align:center;font-size:17px}.side-note{margin-top:34px;background:#e9efdf;border-radius:17px;padding:19px 18px;color:#48644e;font-size:12px;line-height:1.65}.side-note strong{display:block;font-size:14px;margin-bottom:5px}.mini-leaf{font-size:20px;margin-bottom:7px}
+    main{min-width:0}.greeting{display:flex;justify-content:space-between;align-items:end;margin-bottom:24px}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.6px;color:#829087;font-weight:800}.greeting h1{font-size:29px;letter-spacing:-1.2px;margin:8px 0 0}.greeting p{font-size:13px;color:#8a948d;margin:7px 0 0}.day-pill{font-size:12px;color:#758178;background:#fff;border:1px solid var(--line);border-radius:99px;padding:9px 13px;margin-bottom:3px}
+    .stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin-bottom:21px}.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:15px 17px;display:flex;align-items:center;gap:12px}.stat-icon{width:37px;height:37px;border-radius:12px;background:#f1f2e9;display:grid;place-items:center;font-size:18px}.stat:nth-child(2) .stat-icon{background:#fff0e7}.stat:nth-child(3) .stat-icon{background:#e9f3ed}.stat label{display:block;font-size:10px;color:#87918b;font-weight:700;margin-bottom:2px}.stat strong{font-size:19px;letter-spacing:-.5px}.stat strong span{font-size:11px;color:#89928d;font-weight:500;letter-spacing:0}
+    .game-card{background:#fff;border:1px solid var(--line);border-radius:21px;padding:23px 26px 25px;box-shadow:var(--shadow)}.card-head{display:flex;align-items:center;justify-content:space-between}.mode{font-size:11px;font-weight:800;color:#64836b;background:#eef3e9;border-radius:99px;padding:7px 11px}.counter{font-size:12px;color:#88928c;font-weight:600}.progress{height:5px;background:#eff0e9;border-radius:9px;margin:15px 0 20px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:#a5c66d;border-radius:9px;transition:width .35s ease}.word-area{text-align:center;padding:9px 0 13px}.word-area .hint{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#a0a7a1;font-weight:700}.word-line{display:flex;justify-content:center;align-items:center;gap:11px;margin:8px 0 3px}.word{font-size:38px;font-weight:800;letter-spacing:-1.6px}.sound{border:1px solid #e9ece5;background:#fff;border-radius:50%;width:34px;height:34px;font-size:15px;transition:.2s}.sound:hover{background:#eef3e9;transform:scale(1.05)}.phonetic{font-size:12px;color:#89938c}.prompt{font-size:13px;color:#7c8780;margin-top:8px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:11px}.answer{min-height:54px;text-align:left;border:1px solid #e8e9e2;border-radius:12px;background:#fff;padding:13px 15px;font-size:13px;font-weight:600;transition:border-color .16s,background .16s,transform .16s}.answer:hover:not(:disabled){border-color:#a9c37b;background:#fbfcf7;transform:translateY(-1px)}.answer .letter{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:7px;background:#f3f3ee;color:#879187;font-size:10px;font-weight:800;margin-right:10px}.answer.correct{background:#edf5e7;border-color:#95bd72;color:#345b3d}.answer.wrong{background:#fff0ec;border-color:#e9a28c;color:#9c4c39}.answer:disabled{cursor:default}.feedback{display:none;margin-top:14px;border-radius:11px;padding:11px 13px;font-size:12px;line-height:1.5}.feedback.show{display:flex;justify-content:space-between;align-items:center;gap:10px}.feedback.good{background:#edf5e7;color:#426145}.feedback.bad{background:#fff1ec;color:#955645}.feedback strong{font-size:13px}.next{display:none;border:0;background:#3e755c;color:#fff;border-radius:9px;padding:9px 14px;font-size:12px;font-weight:700;white-space:nowrap}.next.show{display:block}.next:hover{background:#315f49}.footer-row{display:flex;justify-content:space-between;align-items:center;margin-top:20px}.learned{font-size:11px;color:#909991}.learned span{color:#57795c;font-weight:700}.skip{border:0;background:transparent;font-size:11px;color:#829087;padding:7px}.skip:hover{color:var(--ink)}
+    .complete{text-align:center;padding:40px 20px 35px;display:none}.complete .trophy{font-size:42px}.complete h2{font-size:26px;margin:12px 0 7px}.complete p{font-size:13px;color:#77847a}.complete button{margin-top:12px;border:0;background:#3e755c;color:white;padding:12px 18px;border-radius:10px;font-weight:700}
+    .toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;background:#183a32;color:#fff;padding:10px 16px;border-radius:99px;font-size:12px;pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:760px){.shell{padding:18px 18px 32px}.layout{grid-template-columns:1fr;gap:20px}.sidebar{order:2;padding:0}.side-label,.side-note{display:none}.nav{display:flex;justify-content:space-between;gap:3px;background:#fff;border:1px solid var(--line);padding:5px;border-radius:14px}.nav button{font-size:0;justify-content:center;padding:9px;flex:1}.nav .icon{font-size:18px}.greeting h1{font-size:24px}.stats{gap:7px}.stat{padding:11px 9px;gap:7px}.stat-icon{width:31px;height:31px;font-size:15px}.stat strong{font-size:16px}.stat label{font-size:9px}.game-card{padding:19px 16px}.word{font-size:34px}.answer{padding:12px 10px;font-size:12px;min-height:58px}.answer .letter{margin-right:5px}.day-pill{font-size:10px;padding:8px}.top-right{gap:7px}.streak{padding:8px 10px}}
+    @media(max-width:370px){.answers{grid-template-columns:1fr}.stat{display:block}.stat-icon{margin-bottom:7px}.day-pill{display:none}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="brand"><div class="logo">🌱</div><div>word garden<small>GROW YOUR VOCABULARY</small></div></div>
+      <div class="top-right"><div class="streak">🔥 <span id="streak">3</span> 天連續學習</div><div class="avatar">🐻</div></div>
+    </header>
+    <div class="layout">
+      <aside class="sidebar">
+        <p class="side-label">學習空間</p>
+        <nav class="nav">
+          <button class="active" data-nav="今日練習"><span class="icon">✦</span>今日練習</button>
+          <button data-nav="單字本"><span class="icon">▤</span>單字本</button>
+          <button data-nav="學習紀錄"><span class="icon">▥</span>學習紀錄</button>
+        </nav>
+        <div class="side-note"><div class="mini-leaf">🍃</div><strong>每天一點點</strong>每天花 5 分鐘，讓英文慢慢在生活裡發芽。</div>
+      </aside>
+      <main>
+        <div class="greeting"><div><div class="eyebrow">YOUR DAILY GROWTH</div><h1>早安，準備好學習了嗎？</h1><p>今天也來種下一些新單字吧。</p></div><div class="day-pill" id="date">📅 今日挑戰</div></div>
+        <section class="stats" aria-label="學習統計">
+          <div class="stat"><div class="stat-icon">📖</div><div><label>本次單字</label><strong id="learnedStat">0 <span>/ 10 題</span></strong></div></div>
+          <div class="stat"><div class="stat-icon">✨</div><div><label>答對題數</label><strong id="correctStat">0 <span>題</span></strong></div></div>
+          <div class="stat"><div class="stat-icon">🌿</div><div><label>最佳連對</label><strong id="bestStat">0 <span>題</span></strong></div></div>
+        </section>
+        <section class="game-card">
+          <div id="quiz">
+            <div class="card-head"><span class="mode">🌼 日常生活</span><span class="counter" id="counter">第 1 題 / 10</span></div>
+            <div class="progress"><span id="progress"></span></div>
+            <div class="word-area"><div class="hint">這個英文單字是什麼意思？</div><div class="word-line"><div class="word" id="word">discover</div><button class="sound" id="sound" aria-label="播放發音" title="播放發音">🔊</button></div><div class="phonetic" id="phonetic">/dɪˈskʌvər/</div><div class="prompt">選出最適合的中文意思</div></div>
+            <div class="answers" id="answers"></div>
+            <div class="feedback" id="feedback"><div><strong id="feedbackTitle"></strong><div id="feedbackText"></div></div><button class="next" id="next">下一題 →</button></div>
+            <div class="footer-row"><div class="learned">🌱 已學會 <span id="learnedFooter">0</span> 個新單字</div><button class="skip" id="skip">跳過此題 ↗</button></div>
+          </div>
+          <div class="complete" id="complete"><div class="trophy">🌷</div><h2>今天的花園長大了！</h2><p id="completeText">你完成了今天的 10 個單字練習。</p><button id="restart">再玩一輪 ↻</button></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="vocabulary.js"></script>
+  <script>
+    const bank = window.VOCABULARY || [];
+    const roundSize = 10;
+    let round = [], index = 0, correct = 0, streak = 0, best = 0, answered = false;
+    let learned = new Set(JSON.parse(localStorage.getItem('wordGardenLearned') || '[]'));
+    const $ = s => document.querySelector(s);
+    const shuffle = a => [...a].sort(() => Math.random() - .5);
+    function newRound() {
+      round = shuffle(bank).slice(0, roundSize); index = 0; correct = 0; streak = 0; best = 0; answered = false;
+      $('#quiz').style.display = 'block'; $('#complete').style.display = 'none'; render();
+    }
+    function render() {
+      const item = round[index]; if (!item) return;
+      answered = false; $('#word').textContent = item.word; $('#phonetic').textContent = `${item.pos} · 台灣高中參考詞彙`;
+      $('#counter').textContent = `第 ${index + 1} 題 / ${roundSize}`;
+      $('#progress').style.width = `${index / roundSize * 100}%`;
+      $('#learnedStat').innerHTML = `${index} <span>/ ${roundSize} 題</span>`;
+      $('#correctStat').innerHTML = `${correct} <span>題</span>`; $('#bestStat').innerHTML = `${best} <span>題</span>`;
+      $('#learnedFooter').textContent = learned.size;
+      $('#feedback').className = 'feedback'; $('#next').className = 'next'; $('#answers').innerHTML = '';
+      const defs = [...new Set(bank.filter(x => x.word !== item.word && x.meaning !== item.meaning).map(x => x.meaning))];
+      const options = shuffle([{ text: item.meaning, right: true }, ...shuffle(defs).slice(0, 3).map(text => ({ text, right: false }))]);
+      options.forEach((choice, i) => {
+        const b = document.createElement('button'); b.className = 'answer';
+        b.innerHTML = `<span class="letter">${'ABCD'[i]}</span>${choice.text}`;
+        b.onclick = () => choose(b, choice.right, item); $('#answers').appendChild(b);
+      });
+    }
+    function choose(btn, right, item) {
+      if (answered) return; answered = true;
+      document.querySelectorAll('.answer').forEach(b => b.disabled = true);
+      learned.add(item.word); localStorage.setItem('wordGardenLearned', JSON.stringify([...learned]));
+      if (right) {
+        correct++; streak++; best = Math.max(best, streak); btn.classList.add('correct');
+        $('#feedback').className = 'feedback good show'; $('#feedbackTitle').textContent = '答對了！🌟';
+        $('#feedbackText').textContent = `${item.word} · ${item.pos}. ${item.meaning}`;
+      } else {
+        streak = 0; btn.classList.add('wrong');
+        document.querySelectorAll('.answer').forEach(b => { if (b.textContent.includes(item.meaning)) b.classList.add('correct'); });
+        $('#feedback').className = 'feedback bad show'; $('#feedbackTitle').textContent = '差一點點！🌱';
+        $('#feedbackText').textContent = `${item.word} 的意思是「${item.meaning}」`;
+      }
+      $('#learnedStat').innerHTML = `${index + 1} <span>/ ${roundSize} 題</span>`;
+      $('#correctStat').innerHTML = `${correct} <span>題</span>`; $('#bestStat').innerHTML = `${best} <span>題</span>`;
+      $('#learnedFooter').textContent = learned.size; $('#next').className = 'next show';
+    }
+    function advance() {
+      if (index < roundSize - 1) { index++; render(); }
+      else {
+        $('#progress').style.width = '100%'; $('#quiz').style.display = 'none'; $('#complete').style.display = 'block';
+        $('#completeText').textContent = `你答對 ${correct} 題，累計練習 ${learned.size} 個不重複單字。再接再厲！`;
+      }
+    }
+    $('#next').onclick = advance;
+    $('#skip').onclick = () => { if (!answered) advance(); };
+    $('#restart').onclick = newRound;
+    $('#sound').onclick = () => {
+      if ('speechSynthesis' in window) { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance($('#word').textContent); u.lang = 'en-US'; u.rate = .88; speechSynthesis.speak(u); }
+      else toast('此瀏覽器暫不支援語音播放');
+    };
+    function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 1700); }
+    document.querySelectorAll('.nav button').forEach(b => b.onclick = () => {
+      document.querySelectorAll('.nav button').forEach(x => x.classList.remove('active')); b.classList.add('active');
+      toast(b.dataset.nav === '單字本' ? `字庫收錄 ${bank.length.toLocaleString()} 個單字` : '學習紀錄已保存在這台裝置 🌱');
+    });
+    const today = new Date(); $('#date').textContent = `📅 ${today.getMonth() + 1} 月 ${today.getDate()} 日挑戰`;
+    $('.greeting p').textContent = `從台灣高中參考字表中練習｜目前收錄 ${bank.length.toLocaleString()} 個單字`;
+    newRound();
+  </script>
+</body>
+</html>
