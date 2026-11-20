@@ -18,6 +18,7 @@
     .complete{text-align:center;padding:40px 20px 35px;display:none}.complete .trophy{font-size:42px}.complete h2{font-size:26px;margin:12px 0 7px}.complete p{font-size:13px;color:#77847a}.complete button{margin-top:12px;border:0;background:#3e755c;color:white;padding:12px 18px;border-radius:10px;font-weight:700}
     .wordbook-view{display:none}.wordbook-heading{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:18px}.wordbook-heading h2{font-size:21px;letter-spacing:-.5px;margin:6px 0 0}.wordbook-total{font-size:12px;color:#829087}.wordbook-toolbar{display:grid;grid-template-columns:minmax(0,1fr) 160px;gap:10px;margin-bottom:14px}.wordbook-toolbar input,.wordbook-toolbar select{width:100%;border:1px solid #e8e9e2;border-radius:10px;background:#fff;padding:11px 13px;color:var(--ink);font:inherit;font-size:12px;outline:none}.wordbook-toolbar input:focus,.wordbook-toolbar select:focus{border-color:#a9c37b;box-shadow:0 0 0 3px #a9c37b22}.wordbook-list{display:grid;gap:8px}.vocab-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid #eeeee8;border-radius:12px;padding:11px 13px}.vocab-main{min-width:0}.vocab-line{display:flex;align-items:center;gap:8px}.vocab-word{font-size:14px;font-weight:800}.vocab-pos{font-size:10px;color:#8b958e;background:#f3f4ef;padding:3px 7px;border-radius:99px}.vocab-meaning{font-size:12px;color:#69776e;margin-top:4px;line-height:1.5;overflow-wrap:anywhere}.vocab-status{font-size:10px;color:#8a948d;white-space:nowrap}.vocab-status.done{color:#567a57}.vocab-sound{flex:none;width:31px;height:31px;border:1px solid #e9ece5;border-radius:50%;background:#fff;font-size:14px}.vocab-sound:hover{background:#eef3e9}.wordbook-empty{padding:30px 10px;text-align:center;color:#87918b;font-size:13px}.wordbook-pagination{display:flex;justify-content:space-between;align-items:center;margin-top:14px;color:#849087;font-size:11px}.wordbook-pagination button{border:1px solid #e8e9e2;background:#fff;border-radius:8px;padding:7px 11px;font-size:11px}.wordbook-pagination button:disabled{opacity:.45;cursor:default}
     .history-view{display:none}.history-heading{margin-bottom:18px}.history-heading h2{font-size:21px;margin:6px 0 0}.history-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}.history-stat{background:#f8f8f3;border-radius:12px;padding:14px}.history-stat label{display:block;color:#87918b;font-size:10px;font-weight:700;margin-bottom:5px}.history-stat strong{font-size:20px}.history-stat strong small{font-size:11px;color:#87918b;font-weight:500}.history-subtitle{font-size:13px;font-weight:800;margin:0 0 10px}.history-list{display:grid;gap:8px}.history-day{display:flex;align-items:center;gap:12px;padding:11px 12px;border:1px solid #eeeee8;border-radius:11px}.history-day-icon{width:34px;height:34px;border-radius:10px;background:#edf3e7;display:grid;place-items:center}.history-day-main{flex:1}.history-day-date{font-size:12px;font-weight:700}.history-day-detail{font-size:10px;color:#87918b;margin-top:3px}.history-day-score{font-size:12px;font-weight:800;color:#58775a}.history-empty{padding:24px 8px;text-align:center;color:#87918b;font-size:12px;background:#f8f8f3;border-radius:11px}
+    .practice-scope{border:1px solid #e8e9e2;border-radius:99px;padding:7px 10px;background:#fff;color:#56745d;font-size:11px;font-weight:700;outline:none}.practice-empty{display:none;text-align:center;padding:42px 18px 38px}.practice-empty .empty-icon{font-size:34px}.practice-empty h2{font-size:20px;margin:10px 0 6px}.practice-empty p{font-size:12px;color:#849087}.practice-empty button{margin-top:10px;border:0;background:#3e755c;color:#fff;border-radius:9px;padding:10px 14px;font-size:12px;font-weight:700}
     .toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;background:#183a32;color:#fff;padding:10px 16px;border-radius:99px;font-size:12px;pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
     @media(max-width:760px){.shell{padding:18px 18px 32px}.layout{grid-template-columns:1fr;gap:20px}.sidebar{order:2;padding:0}.side-label,.side-note{display:none}.nav{display:flex;justify-content:space-between;gap:3px;background:#fff;border:1px solid var(--line);padding:5px;border-radius:14px}.nav button{font-size:0;justify-content:center;padding:9px;flex:1}.nav .icon{font-size:18px}.greeting h1{font-size:24px}.stats{gap:7px}.stat{padding:11px 9px;gap:7px}.stat-icon{width:31px;height:31px;font-size:15px}.stat strong{font-size:16px}.stat label{font-size:9px}.game-card{padding:19px 16px}.word{font-size:34px}.answer{padding:12px 10px;font-size:12px;min-height:58px}.answer .letter{margin-right:5px}.day-pill{font-size:10px;padding:8px}.top-right{gap:7px}.streak{padding:8px 10px}.wordbook-toolbar{grid-template-columns:minmax(0,1fr) 125px}.vocab-row{padding:10px}.vocab-meaning{font-size:11px}.history-summary{gap:6px}.history-stat{padding:10px}.history-stat strong{font-size:17px}}
     @media(max-width:370px){.answers{grid-template-columns:1fr}.stat{display:block}.stat-icon{margin-bottom:7px}.day-pill{display:none}}
@@ -48,13 +49,14 @@
         </section>
         <section class="game-card" id="gameCard">
           <div id="quiz">
-            <div class="card-head"><span class="mode">🌼 日常生活</span><span class="counter" id="counter">第 1 題 / 10</span></div>
+            <div class="card-head"><select class="practice-scope" id="practiceScope" aria-label="選擇練習範圍"><option value="all">🌼 全部單字</option><option value="new">🌱 尚未練習</option><option value="missed">🔁 錯題複習</option></select><span class="counter" id="counter">第 1 題 / 10</span></div>
             <div class="progress"><span id="progress"></span></div>
             <div class="word-area"><div class="hint">這個英文單字是什麼意思？</div><div class="word-line"><div class="word" id="word">discover</div><button class="sound" id="sound" aria-label="播放發音" title="播放發音">🔊</button></div><div class="phonetic" id="phonetic">/dɪˈskʌvər/</div><div class="prompt">選出最適合的中文意思</div></div>
             <div class="answers" id="answers"></div>
             <div class="feedback" id="feedback"><div><strong id="feedbackTitle"></strong><div id="feedbackText"></div></div><button class="next" id="next">下一題 →</button></div>
             <div class="footer-row"><div class="learned">🌱 已學會 <span id="learnedFooter">0</span> 個新單字</div><button class="skip" id="skip">跳過此題 ↗</button></div>
           </div>
+          <div class="practice-empty" id="practiceEmpty"><div class="empty-icon">🌼</div><h2 id="emptyTitle">這個範圍暫時沒有單字</h2><p id="emptyText"></p><button id="emptyAction" type="button">改練全部單字</button></div>
           <div class="complete" id="complete"><div class="trophy">🌷</div><h2>今天的花園長大了！</h2><p id="completeText">你完成了今天的 10 個單字練習。</p><button id="restart">再玩一輪 ↻</button></div>
         </section>
         <section class="game-card wordbook-view" id="wordbook" aria-label="單字本">
@@ -80,6 +82,7 @@
   <script src="vocabulary.js"></script>
   <script src="wordbook.js"></script>
   <script src="history.js"></script>
+  <script src="practice.js"></script>
   <script>
     const bank = window.VOCABULARY || [];
     const roundSize = 10;
@@ -89,6 +92,8 @@
     }
     const previousLearned = readStoredJSON('wordGardenLearned', []);
     let learned = new Set(Array.isArray(previousLearned) ? previousLearned : []);
+    const previousMissed = readStoredJSON('wordGardenMissed', []);
+    let missed = new Set(Array.isArray(previousMissed) ? previousMissed : []);
     let studyHistory = readStoredJSON('wordGardenHistory', { days: {} });
     if (!studyHistory || typeof studyHistory !== 'object' || !studyHistory.days || typeof studyHistory.days !== 'object') studyHistory = { days: {} };
     let wordbookPage = 0;
@@ -96,15 +101,23 @@
     const shuffle = a => [...a].sort(() => Math.random() - .5);
     const pageSize = 50;
     function newRound() {
-      round = shuffle(bank).slice(0, roundSize); index = 0; correct = 0; streak = 0; best = 0; answered = false;
-      $('#quiz').style.display = 'block'; $('#complete').style.display = 'none'; render();
+      const pool = Practice.filterWords(bank, $('#practiceScope').value, learned, missed);
+      round = shuffle(pool).slice(0, roundSize); index = 0; correct = 0; streak = 0; best = 0; answered = false;
+      $('#complete').style.display = 'none'; $('#practiceEmpty').style.display = 'none';
+      if (!round.length) {
+        $('#quiz').style.display = 'none'; $('#practiceEmpty').style.display = 'block';
+        const scope = $('#practiceScope').value;
+        $('#emptyText').textContent = scope === 'new' ? '你已經練過目前字庫中的所有單字。' : scope === 'missed' ? '目前沒有待複習的錯題。' : '目前字庫沒有可用單字。';
+        return;
+      }
+      $('#quiz').style.display = 'block'; render();
     }
     function render() {
       const item = round[index]; if (!item) return;
       answered = false; $('#word').textContent = item.word; $('#phonetic').textContent = `${item.pos} · 台灣高中參考詞彙`;
-      $('#counter').textContent = `第 ${index + 1} 題 / ${roundSize}`;
-      $('#progress').style.width = `${index / roundSize * 100}%`;
-      $('#learnedStat').innerHTML = `${index} <span>/ ${roundSize} 題</span>`;
+      $('#counter').textContent = `第 ${index + 1} 題 / ${round.length}`;
+      $('#progress').style.width = `${index / round.length * 100}%`;
+      $('#learnedStat').innerHTML = `${index} <span>/ ${round.length} 題</span>`;
       $('#correctStat').innerHTML = `${correct} <span>題</span>`; $('#bestStat').innerHTML = `${best} <span>題</span>`;
       $('#learnedFooter').textContent = learned.size;
       $('#feedback').className = 'feedback'; $('#next').className = 'next'; $('#answers').innerHTML = '';
@@ -126,6 +139,8 @@
       if (answered) return; answered = true;
       document.querySelectorAll('.answer').forEach(b => b.disabled = true);
       learned.add(item.word); localStorage.setItem('wordGardenLearned', JSON.stringify([...learned]));
+      if (right) missed.delete(item.word); else missed.add(item.word);
+      localStorage.setItem('wordGardenMissed', JSON.stringify([...missed]));
       recordAnswer(right);
       if (right) {
         correct++; streak++; best = Math.max(best, streak); btn.classList.add('correct');
@@ -137,12 +152,12 @@
         $('#feedback').className = 'feedback bad show'; $('#feedbackTitle').textContent = '差一點點！🌱';
         $('#feedbackText').textContent = `${item.word} 的意思是「${item.meaning}」`;
       }
-      $('#learnedStat').innerHTML = `${index + 1} <span>/ ${roundSize} 題</span>`;
+      $('#learnedStat').innerHTML = `${index + 1} <span>/ ${round.length} 題</span>`;
       $('#correctStat').innerHTML = `${correct} <span>題</span>`; $('#bestStat').innerHTML = `${best} <span>題</span>`;
       $('#learnedFooter').textContent = learned.size; $('#next').className = 'next show';
     }
     function advance() {
-      if (index < roundSize - 1) { index++; render(); }
+      if (index < round.length - 1) { index++; render(); }
       else {
         $('#progress').style.width = '100%'; $('#quiz').style.display = 'none'; $('#complete').style.display = 'block';
         $('#completeText').textContent = `你答對 ${correct} 題，累計練習 ${learned.size} 個不重複單字。再接再厲！`;
@@ -151,6 +166,8 @@
     $('#next').onclick = advance;
     $('#skip').onclick = () => { if (!answered) advance(); };
     $('#restart').onclick = newRound;
+    $('#practiceScope').onchange = newRound;
+    $('#emptyAction').onclick = () => { $('#practiceScope').value = 'all'; newRound(); };
     $('#sound').onclick = () => {
       if ('speechSynthesis' in window) { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance($('#word').textContent); u.lang = 'en-US'; u.rate = .88; speechSynthesis.speak(u); }
       else toast('此瀏覽器暫不支援語音播放');
