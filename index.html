@@ -17,8 +17,9 @@
     .game-card{background:#fff;border:1px solid var(--line);border-radius:21px;padding:23px 26px 25px;box-shadow:var(--shadow)}.card-head{display:flex;align-items:center;justify-content:space-between}.mode{font-size:11px;font-weight:800;color:#64836b;background:#eef3e9;border-radius:99px;padding:7px 11px}.counter{font-size:12px;color:#88928c;font-weight:600}.progress{height:5px;background:#eff0e9;border-radius:9px;margin:15px 0 20px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:#a5c66d;border-radius:9px;transition:width .35s ease}.word-area{text-align:center;padding:9px 0 13px}.word-area .hint{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#a0a7a1;font-weight:700}.word-line{display:flex;justify-content:center;align-items:center;gap:11px;margin:8px 0 3px}.word{font-size:38px;font-weight:800;letter-spacing:-1.6px}.sound{border:1px solid #e9ece5;background:#fff;border-radius:50%;width:34px;height:34px;font-size:15px;transition:.2s}.sound:hover{background:#eef3e9;transform:scale(1.05)}.phonetic{font-size:12px;color:#89938c}.prompt{font-size:13px;color:#7c8780;margin-top:8px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:11px}.answer{min-height:54px;text-align:left;border:1px solid #e8e9e2;border-radius:12px;background:#fff;padding:13px 15px;font-size:13px;font-weight:600;transition:border-color .16s,background .16s,transform .16s}.answer:hover:not(:disabled){border-color:#a9c37b;background:#fbfcf7;transform:translateY(-1px)}.answer .letter{display:inline-grid;place-items:center;width:23px;height:23px;border-radius:7px;background:#f3f3ee;color:#879187;font-size:10px;font-weight:800;margin-right:10px}.answer.correct{background:#edf5e7;border-color:#95bd72;color:#345b3d}.answer.wrong{background:#fff0ec;border-color:#e9a28c;color:#9c4c39}.answer:disabled{cursor:default}.feedback{display:none;margin-top:14px;border-radius:11px;padding:11px 13px;font-size:12px;line-height:1.5}.feedback.show{display:flex;justify-content:space-between;align-items:center;gap:10px}.feedback.good{background:#edf5e7;color:#426145}.feedback.bad{background:#fff1ec;color:#955645}.feedback strong{font-size:13px}.next{display:none;border:0;background:#3e755c;color:#fff;border-radius:9px;padding:9px 14px;font-size:12px;font-weight:700;white-space:nowrap}.next.show{display:block}.next:hover{background:#315f49}.footer-row{display:flex;justify-content:space-between;align-items:center;margin-top:20px}.learned{font-size:11px;color:#909991}.learned span{color:#57795c;font-weight:700}.skip{border:0;background:transparent;font-size:11px;color:#829087;padding:7px}.skip:hover{color:var(--ink)}
     .complete{text-align:center;padding:40px 20px 35px;display:none}.complete .trophy{font-size:42px}.complete h2{font-size:26px;margin:12px 0 7px}.complete p{font-size:13px;color:#77847a}.complete button{margin-top:12px;border:0;background:#3e755c;color:white;padding:12px 18px;border-radius:10px;font-weight:700}
     .wordbook-view{display:none}.wordbook-heading{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:18px}.wordbook-heading h2{font-size:21px;letter-spacing:-.5px;margin:6px 0 0}.wordbook-total{font-size:12px;color:#829087}.wordbook-toolbar{display:grid;grid-template-columns:minmax(0,1fr) 160px;gap:10px;margin-bottom:14px}.wordbook-toolbar input,.wordbook-toolbar select{width:100%;border:1px solid #e8e9e2;border-radius:10px;background:#fff;padding:11px 13px;color:var(--ink);font:inherit;font-size:12px;outline:none}.wordbook-toolbar input:focus,.wordbook-toolbar select:focus{border-color:#a9c37b;box-shadow:0 0 0 3px #a9c37b22}.wordbook-list{display:grid;gap:8px}.vocab-row{display:flex;justify-content:space-between;align-items:center;gap:12px;border:1px solid #eeeee8;border-radius:12px;padding:11px 13px}.vocab-main{min-width:0}.vocab-line{display:flex;align-items:center;gap:8px}.vocab-word{font-size:14px;font-weight:800}.vocab-pos{font-size:10px;color:#8b958e;background:#f3f4ef;padding:3px 7px;border-radius:99px}.vocab-meaning{font-size:12px;color:#69776e;margin-top:4px;line-height:1.5;overflow-wrap:anywhere}.vocab-status{font-size:10px;color:#8a948d;white-space:nowrap}.vocab-status.done{color:#567a57}.vocab-sound{flex:none;width:31px;height:31px;border:1px solid #e9ece5;border-radius:50%;background:#fff;font-size:14px}.vocab-sound:hover{background:#eef3e9}.wordbook-empty{padding:30px 10px;text-align:center;color:#87918b;font-size:13px}.wordbook-pagination{display:flex;justify-content:space-between;align-items:center;margin-top:14px;color:#849087;font-size:11px}.wordbook-pagination button{border:1px solid #e8e9e2;background:#fff;border-radius:8px;padding:7px 11px;font-size:11px}.wordbook-pagination button:disabled{opacity:.45;cursor:default}
+    .history-view{display:none}.history-heading{margin-bottom:18px}.history-heading h2{font-size:21px;margin:6px 0 0}.history-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}.history-stat{background:#f8f8f3;border-radius:12px;padding:14px}.history-stat label{display:block;color:#87918b;font-size:10px;font-weight:700;margin-bottom:5px}.history-stat strong{font-size:20px}.history-stat strong small{font-size:11px;color:#87918b;font-weight:500}.history-subtitle{font-size:13px;font-weight:800;margin:0 0 10px}.history-list{display:grid;gap:8px}.history-day{display:flex;align-items:center;gap:12px;padding:11px 12px;border:1px solid #eeeee8;border-radius:11px}.history-day-icon{width:34px;height:34px;border-radius:10px;background:#edf3e7;display:grid;place-items:center}.history-day-main{flex:1}.history-day-date{font-size:12px;font-weight:700}.history-day-detail{font-size:10px;color:#87918b;margin-top:3px}.history-day-score{font-size:12px;font-weight:800;color:#58775a}.history-empty{padding:24px 8px;text-align:center;color:#87918b;font-size:12px;background:#f8f8f3;border-radius:11px}
     .toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;background:#183a32;color:#fff;padding:10px 16px;border-radius:99px;font-size:12px;pointer-events:none;transition:.25s}.toast.show{opacity:1;transform:translate(-50%,0)}
-    @media(max-width:760px){.shell{padding:18px 18px 32px}.layout{grid-template-columns:1fr;gap:20px}.sidebar{order:2;padding:0}.side-label,.side-note{display:none}.nav{display:flex;justify-content:space-between;gap:3px;background:#fff;border:1px solid var(--line);padding:5px;border-radius:14px}.nav button{font-size:0;justify-content:center;padding:9px;flex:1}.nav .icon{font-size:18px}.greeting h1{font-size:24px}.stats{gap:7px}.stat{padding:11px 9px;gap:7px}.stat-icon{width:31px;height:31px;font-size:15px}.stat strong{font-size:16px}.stat label{font-size:9px}.game-card{padding:19px 16px}.word{font-size:34px}.answer{padding:12px 10px;font-size:12px;min-height:58px}.answer .letter{margin-right:5px}.day-pill{font-size:10px;padding:8px}.top-right{gap:7px}.streak{padding:8px 10px}.wordbook-toolbar{grid-template-columns:minmax(0,1fr) 125px}.vocab-row{padding:10px}.vocab-meaning{font-size:11px}}
+    @media(max-width:760px){.shell{padding:18px 18px 32px}.layout{grid-template-columns:1fr;gap:20px}.sidebar{order:2;padding:0}.side-label,.side-note{display:none}.nav{display:flex;justify-content:space-between;gap:3px;background:#fff;border:1px solid var(--line);padding:5px;border-radius:14px}.nav button{font-size:0;justify-content:center;padding:9px;flex:1}.nav .icon{font-size:18px}.greeting h1{font-size:24px}.stats{gap:7px}.stat{padding:11px 9px;gap:7px}.stat-icon{width:31px;height:31px;font-size:15px}.stat strong{font-size:16px}.stat label{font-size:9px}.game-card{padding:19px 16px}.word{font-size:34px}.answer{padding:12px 10px;font-size:12px;min-height:58px}.answer .letter{margin-right:5px}.day-pill{font-size:10px;padding:8px}.top-right{gap:7px}.streak{padding:8px 10px}.wordbook-toolbar{grid-template-columns:minmax(0,1fr) 125px}.vocab-row{padding:10px}.vocab-meaning{font-size:11px}.history-summary{gap:6px}.history-stat{padding:10px}.history-stat strong{font-size:17px}}
     @media(max-width:370px){.answers{grid-template-columns:1fr}.stat{display:block}.stat-icon{margin-bottom:7px}.day-pill{display:none}}
   </style>
 </head>
@@ -26,7 +27,7 @@
   <div class="shell">
     <header>
       <div class="brand"><div class="logo">🌱</div><div>word garden<small>GROW YOUR VOCABULARY</small></div></div>
-      <div class="top-right"><div class="streak">🔥 <span id="streak">3</span> 天連續學習</div><div class="avatar">🐻</div></div>
+      <div class="top-right"><div class="streak">🔥 <span id="streak">0</span> 天連續學習</div><div class="avatar">🐻</div></div>
     </header>
     <div class="layout">
       <aside class="sidebar">
@@ -62,17 +63,34 @@
           <div class="wordbook-list" id="wordbookList" aria-live="polite"></div>
           <div class="wordbook-pagination"><button id="wordPrev" type="button">← 上一頁</button><span id="wordPage"></span><button id="wordNext" type="button">下一頁 →</button></div>
         </section>
+        <section class="game-card history-view" id="historyView" aria-label="學習紀錄">
+          <div class="history-heading"><div class="eyebrow">YOUR PROGRESS</div><h2>學習紀錄</h2></div>
+          <div class="history-summary">
+            <div class="history-stat"><label>累計答題</label><strong id="historyAnswered">0 <small>題</small></strong></div>
+            <div class="history-stat"><label>累計答對</label><strong id="historyCorrect">0 <small>題</small></strong></div>
+            <div class="history-stat"><label>有學習的日子</label><strong id="historyDaysCount">0 <small>天</small></strong></div>
+          </div>
+          <h3 class="history-subtitle">最近 14 天</h3>
+          <div class="history-list" id="historyList" aria-live="polite"></div>
+        </section>
       </main>
     </div>
   </div>
   <div class="toast" id="toast"></div>
   <script src="vocabulary.js"></script>
   <script src="wordbook.js"></script>
+  <script src="history.js"></script>
   <script>
     const bank = window.VOCABULARY || [];
     const roundSize = 10;
     let round = [], index = 0, correct = 0, streak = 0, best = 0, answered = false;
-    let learned = new Set(JSON.parse(localStorage.getItem('wordGardenLearned') || '[]'));
+    function readStoredJSON(key, fallback) {
+      try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; }
+    }
+    const previousLearned = readStoredJSON('wordGardenLearned', []);
+    let learned = new Set(Array.isArray(previousLearned) ? previousLearned : []);
+    let studyHistory = readStoredJSON('wordGardenHistory', { days: {} });
+    if (!studyHistory || typeof studyHistory !== 'object' || !studyHistory.days || typeof studyHistory.days !== 'object') studyHistory = { days: {} };
     let wordbookPage = 0;
     const $ = s => document.querySelector(s);
     const shuffle = a => [...a].sort(() => Math.random() - .5);
@@ -108,6 +126,7 @@
       if (answered) return; answered = true;
       document.querySelectorAll('.answer').forEach(b => b.disabled = true);
       learned.add(item.word); localStorage.setItem('wordGardenLearned', JSON.stringify([...learned]));
+      recordAnswer(right);
       if (right) {
         correct++; streak++; best = Math.max(best, streak); btn.classList.add('correct');
         $('#feedback').className = 'feedback good show'; $('#feedbackTitle').textContent = '答對了！🌟';
@@ -169,6 +188,39 @@
       if ('speechSynthesis' in window) { speechSynthesis.cancel(); const utterance = new SpeechSynthesisUtterance(word); utterance.lang = 'en-US'; utterance.rate = .88; speechSynthesis.speak(utterance); }
       else toast('此瀏覽器暫不支援語音播放');
     }
+    function currentStreak() {
+      const today = new Date();
+      return StudyHistory.currentStreak(studyHistory.days, today);
+    }
+    function recordAnswer(wasCorrect) {
+      const key = StudyHistory.dateKey(new Date());
+      const day = studyHistory.days[key] || (studyHistory.days[key] = { answered: 0, correct: 0 });
+      day.answered++;
+      if (wasCorrect) day.correct++;
+      localStorage.setItem('wordGardenHistory', JSON.stringify(studyHistory));
+      $('#streak').textContent = currentStreak();
+    }
+    function renderHistory() {
+      const summary = StudyHistory.summarize(studyHistory.days);
+      $('#historyAnswered').innerHTML = `${summary.answered.toLocaleString()} <small>題</small>`;
+      $('#historyCorrect').innerHTML = `${summary.correct.toLocaleString()} <small>題</small>`;
+      $('#historyDaysCount').innerHTML = `${summary.studyDays.toLocaleString()} <small>天</small>`;
+      const list = $('#historyList'); list.replaceChildren();
+      const recent = StudyHistory.recentDays(studyHistory.days, new Date(), 14);
+      if (!recent.length) {
+        const empty = document.createElement('div'); empty.className = 'history-empty'; empty.textContent = '完成一題練習後，這裡就會記下你的學習足跡。'; list.appendChild(empty); return;
+      }
+      recent.forEach(({ key, answered: dayAnswered, correct: dayCorrect }) => {
+        const row = document.createElement('article'); row.className = 'history-day';
+        const icon = document.createElement('div'); icon.className = 'history-day-icon'; icon.textContent = '🌱';
+        const main = document.createElement('div'); main.className = 'history-day-main';
+        const date = document.createElement('div'); date.className = 'history-day-date';
+        date.textContent = new Intl.DateTimeFormat('zh-TW', { month: 'long', day: 'numeric', weekday: 'short' }).format(new Date(`${key}T12:00:00`));
+        const detail = document.createElement('div'); detail.className = 'history-day-detail'; detail.textContent = `答題 ${dayAnswered} 題 · 答對 ${dayCorrect} 題`;
+        const score = document.createElement('div'); score.className = 'history-day-score'; score.textContent = `${Math.round(dayCorrect / dayAnswered * 100)}%`;
+        main.append(date, detail); row.append(icon, main, score); list.appendChild(row);
+      });
+    }
     $('#wordSearch').addEventListener('input', () => { wordbookPage = 0; renderWordbook(); });
     $('#wordFilter').addEventListener('change', () => { wordbookPage = 0; renderWordbook(); });
     $('#wordPrev').onclick = () => { wordbookPage--; renderWordbook(); };
@@ -176,14 +228,16 @@
     function toast(t) { const el = $('#toast'); el.textContent = t; el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 1700); }
     document.querySelectorAll('.nav button').forEach(b => b.onclick = () => {
       document.querySelectorAll('.nav button').forEach(x => x.classList.remove('active')); b.classList.add('active');
-      const isWordbook = b.dataset.nav === '單字本';
-      $('#gameCard').style.display = isWordbook ? 'none' : 'block';
-      $('#wordbook').style.display = isWordbook ? 'block' : 'none';
-      if (isWordbook) renderWordbook();
-      else if (b.dataset.nav === '學習紀錄') toast('學習紀錄功能正在準備中 🌱');
+      const view = b.dataset.nav;
+      $('#gameCard').style.display = view === '今日練習' ? 'block' : 'none';
+      $('#wordbook').style.display = view === '單字本' ? 'block' : 'none';
+      $('#historyView').style.display = view === '學習紀錄' ? 'block' : 'none';
+      if (view === '單字本') renderWordbook();
+      if (view === '學習紀錄') renderHistory();
     });
     const today = new Date(); $('#date').textContent = `📅 ${today.getMonth() + 1} 月 ${today.getDate()} 日挑戰`;
     $('.greeting p').textContent = `從台灣高中參考字表中練習｜目前收錄 ${bank.length.toLocaleString()} 個單字`;
+    $('#streak').textContent = currentStreak();
     newRound();
   </script>
 </body>
