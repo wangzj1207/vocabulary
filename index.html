@@ -80,11 +80,17 @@
       $('#correctStat').innerHTML = `${correct} <span>題</span>`; $('#bestStat').innerHTML = `${best} <span>題</span>`;
       $('#learnedFooter').textContent = learned.size;
       $('#feedback').className = 'feedback'; $('#next').className = 'next'; $('#answers').innerHTML = '';
-      const defs = [...new Set(bank.filter(x => x.word !== item.word && x.meaning !== item.meaning).map(x => x.meaning))];
-      const options = shuffle([{ text: item.meaning, right: true }, ...shuffle(defs).slice(0, 3).map(text => ({ text, right: false }))]);
+      const primaryPos = value => value.split('/')[0].replace(/\.$/, '');
+      const candidates = bank.filter(x => x.word !== item.word && x.meaning !== item.meaning);
+      const samePos = candidates.filter(x => primaryPos(x.pos) === primaryPos(item.pos));
+      const samePosMeanings = [...new Set(samePos.map(x => x.meaning))];
+      const allMeanings = [...new Set(candidates.map(x => x.meaning))];
+      const distractors = samePosMeanings.length >= 3 ? samePosMeanings : allMeanings;
+      const options = shuffle([{ text: item.meaning, right: true }, ...shuffle(distractors).slice(0, 3).map(text => ({ text, right: false }))]);
       options.forEach((choice, i) => {
-        const b = document.createElement('button'); b.className = 'answer';
-        b.innerHTML = `<span class="letter">${'ABCD'[i]}</span>${choice.text}`;
+        const b = document.createElement('button'); b.className = 'answer'; b.dataset.correct = String(choice.right);
+        const letter = document.createElement('span'); letter.className = 'letter'; letter.textContent = 'ABCD'[i];
+        b.append(letter, document.createTextNode(choice.text));
         b.onclick = () => choose(b, choice.right, item); $('#answers').appendChild(b);
       });
     }
@@ -95,10 +101,10 @@
       if (right) {
         correct++; streak++; best = Math.max(best, streak); btn.classList.add('correct');
         $('#feedback').className = 'feedback good show'; $('#feedbackTitle').textContent = '答對了！🌟';
-        $('#feedbackText').textContent = `${item.word} · ${item.pos}. ${item.meaning}`;
+        $('#feedbackText').textContent = `${item.word} · ${item.pos} ${item.meaning}`;
       } else {
         streak = 0; btn.classList.add('wrong');
-        document.querySelectorAll('.answer').forEach(b => { if (b.textContent.includes(item.meaning)) b.classList.add('correct'); });
+        document.querySelectorAll('.answer').forEach(b => { if (b.dataset.correct === 'true') b.classList.add('correct'); });
         $('#feedback').className = 'feedback bad show'; $('#feedbackTitle').textContent = '差一點點！🌱';
         $('#feedbackText').textContent = `${item.word} 的意思是「${item.meaning}」`;
       }
