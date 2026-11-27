@@ -34,6 +34,13 @@ class VocabularyDataTests(unittest.TestCase):
                 self.assertTrue(meaning)
                 self.assertRegex(meaning, r"[\u3400-\u9fff]")
 
+    def test_entries_match_the_documented_schema(self):
+        expected_fields = {"word", "pos", "meaning", "marked"}
+        for entry in self.words:
+            with self.subTest(word=entry.get("word")):
+                self.assertEqual(set(entry), expected_fields)
+                self.assertIsInstance(entry["marked"], bool)
+
     def test_meanings_do_not_start_with_leftover_pos_markers(self):
         marker = re.compile(r"^\s*/?\s*(?:n|v|adj|adv|prep|conj|pron|art|aux|int|num|phr|prop)\s*\.", re.I)
         leftovers = [entry["word"] for entry in self.words if marker.search(entry["meaning"])]
