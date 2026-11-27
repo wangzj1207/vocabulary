@@ -86,6 +86,7 @@
   <script src="history.js"></script>
   <script src="review.js"></script>
   <script src="practice.js"></script>
+  <script src="quiz.js"></script>
   <script>
     const bank = window.VOCABULARY || [];
     const roundSize = 10;
@@ -103,7 +104,7 @@
     if (!studyHistory || typeof studyHistory !== 'object' || !studyHistory.days || typeof studyHistory.days !== 'object') studyHistory = { days: {} };
     let wordbookPage = 0;
     const $ = s => document.querySelector(s);
-    const shuffle = a => [...a].sort(() => Math.random() - .5);
+    const shuffle = Quiz.shuffle;
     const pageSize = 50;
     function newRound() {
       const pool = Practice.filterWords(bank, $('#practiceScope').value, learned, missed, reviewProgress);
@@ -126,13 +127,7 @@
       $('#correctStat').innerHTML = `${correct} <span>題</span>`; $('#bestStat').innerHTML = `${best} <span>題</span>`;
       $('#learnedFooter').textContent = learned.size;
       $('#feedback').className = 'feedback'; $('#next').className = 'next'; $('#answers').innerHTML = '';
-      const primaryPos = value => value.split('/')[0].replace(/\.$/, '');
-      const candidates = bank.filter(x => x.word !== item.word && x.meaning !== item.meaning);
-      const samePos = candidates.filter(x => primaryPos(x.pos) === primaryPos(item.pos));
-      const samePosMeanings = [...new Set(samePos.map(x => x.meaning))];
-      const allMeanings = [...new Set(candidates.map(x => x.meaning))];
-      const distractors = samePosMeanings.length >= 3 ? samePosMeanings : allMeanings;
-      const options = shuffle([{ text: item.meaning, right: true }, ...shuffle(distractors).slice(0, 3).map(text => ({ text, right: false }))]);
+      const options = Quiz.createOptions(bank, item);
       options.forEach((choice, i) => {
         const b = document.createElement('button'); b.className = 'answer'; b.dataset.correct = String(choice.right);
         const letter = document.createElement('span'); letter.className = 'letter'; letter.textContent = 'ABCD'[i];
