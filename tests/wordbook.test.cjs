@@ -36,6 +36,13 @@ test('practice status filters against the learned word set', () => {
   );
 });
 
+test('wordbook can filter words that are correct or awaiting review', () => {
+  const learned = new Set(['apple', 'banana']);
+  const missed = new Set(['banana']);
+  assert.deepEqual(Wordbook.filterWords(words, '', 'correct', learned, missed).map((word) => word.word), ['apple']);
+  assert.deepEqual(Wordbook.filterWords(words, '', 'review', learned, missed).map((word) => word.word), ['banana']);
+});
+
 test('pagination returns the requested slice and clamps invalid pages', () => {
   const items = Array.from({ length: 123 }, (_, index) => index);
   const last = Wordbook.paginate(items, 9, 50);

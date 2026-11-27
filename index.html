@@ -49,19 +49,19 @@
         </section>
         <section class="game-card" id="gameCard">
           <div id="quiz">
-            <div class="card-head"><select class="practice-scope" id="practiceScope" aria-label="選擇練習範圍"><option value="all">🌼 全部單字</option><option value="new">🌱 尚未練習</option><option value="missed">🔁 錯題複習</option></select><span class="counter" id="counter">第 1 題 / 10</span></div>
+            <div class="card-head"><select class="practice-scope" id="practiceScope" aria-label="選擇練習範圍"><option value="all">🌼 全部單字</option><option value="new">🌱 尚未練習</option><option value="correct">✅ 答對過</option><option value="missed">🔁 待複習</option></select><span class="counter" id="counter">第 1 題 / 10</span></div>
             <div class="progress"><span id="progress"></span></div>
             <div class="word-area"><div class="hint">這個英文單字是什麼意思？</div><div class="word-line"><div class="word" id="word">discover</div><button class="sound" id="sound" aria-label="播放發音" title="播放發音">🔊</button></div><div class="phonetic" id="phonetic">/dɪˈskʌvər/</div><div class="prompt">選出最適合的中文意思</div></div>
             <div class="answers" id="answers"></div>
             <div class="feedback" id="feedback"><div><strong id="feedbackTitle"></strong><div id="feedbackText"></div></div><button class="next" id="next">下一題 →</button></div>
-            <div class="footer-row"><div class="learned">🌱 已學會 <span id="learnedFooter">0</span> 個新單字</div><button class="skip" id="skip">跳過此題 ↗</button></div>
+          <div class="footer-row"><div class="learned">🌱 已練習 <span id="learnedFooter">0</span> 個單字</div><button class="skip" id="skip">跳過此題 ↗</button></div>
           </div>
           <div class="practice-empty" id="practiceEmpty"><div class="empty-icon">🌼</div><h2 id="emptyTitle">這個範圍暫時沒有單字</h2><p id="emptyText"></p><button id="emptyAction" type="button">改練全部單字</button></div>
           <div class="complete" id="complete"><div class="trophy">🌷</div><h2>今天的花園長大了！</h2><p id="completeText">你完成了今天的 10 個單字練習。</p><button id="restart">再玩一輪 ↻</button></div>
         </section>
         <section class="game-card wordbook-view" id="wordbook" aria-label="單字本">
           <div class="wordbook-heading"><div><div class="eyebrow">YOUR VOCABULARY</div><h2>我的單字本</h2></div><div class="wordbook-total" id="wordbookCount"></div></div>
-          <div class="wordbook-toolbar"><input id="wordSearch" type="search" placeholder="搜尋英文單字或中文意思…" aria-label="搜尋單字本"><select id="wordFilter" aria-label="篩選單字"><option value="all">全部單字</option><option value="learned">已練習</option><option value="new">尚未練習</option></select></div>
+          <div class="wordbook-toolbar"><input id="wordSearch" type="search" placeholder="搜尋英文單字或中文意思…" aria-label="搜尋單字本"><select id="wordFilter" aria-label="篩選單字"><option value="all">全部單字</option><option value="new">尚未練習</option><option value="correct">答對過</option><option value="review">待複習</option></select></div>
           <div class="wordbook-list" id="wordbookList" aria-live="polite"></div>
           <div class="wordbook-pagination"><button id="wordPrev" type="button">← 上一頁</button><span id="wordPage"></span><button id="wordNext" type="button">下一頁 →</button></div>
         </section>
@@ -107,7 +107,7 @@
       if (!round.length) {
         $('#quiz').style.display = 'none'; $('#practiceEmpty').style.display = 'block';
         const scope = $('#practiceScope').value;
-        $('#emptyText').textContent = scope === 'new' ? '你已經練過目前字庫中的所有單字。' : scope === 'missed' ? '目前沒有待複習的錯題。' : '目前字庫沒有可用單字。';
+        $('#emptyText').textContent = scope === 'new' ? '你已經練過目前字庫中的所有單字。' : scope === 'correct' ? '目前還沒有答對過的單字。' : scope === 'missed' ? '目前沒有待複習的錯題。' : '目前字庫沒有可用單字。';
         return;
       }
       $('#quiz').style.display = 'block'; render();
@@ -173,10 +173,11 @@
       else toast('此瀏覽器暫不支援語音播放');
     };
     function renderWordbook() {
-      const matches = Wordbook.filterWords(bank, $('#wordSearch').value, $('#wordFilter').value, learned);
+      const matches = Wordbook.filterWords(bank, $('#wordSearch').value, $('#wordFilter').value, learned, missed);
       const page = Wordbook.paginate(matches, wordbookPage, pageSize);
       wordbookPage = page.page;
-      $('#wordbookCount').textContent = `共 ${page.total.toLocaleString()} 個單字`;
+      const statusCounts = Practice.countStatuses(bank, learned, missed);
+      $('#wordbookCount').textContent = `符合 ${page.total.toLocaleString()} 個 · 未練習 ${statusCounts.new.toLocaleString()} · 答對 ${statusCounts.correct.toLocaleString()} · 錯題待複習 ${statusCounts.review.toLocaleString()}`;
       $('#wordPage').textContent = `${wordbookPage + 1} / ${page.pageCount} 頁`;
       $('#wordPrev').disabled = wordbookPage === 0;
       $('#wordNext').disabled = wordbookPage >= page.pageCount - 1;
@@ -194,8 +195,9 @@
         line.append(word, pos);
         const meaning = document.createElement('div'); meaning.className = 'vocab-meaning'; meaning.textContent = item.meaning;
         main.append(line, meaning);
-        const statusLabel = document.createElement('span'); statusLabel.className = `vocab-status${learned.has(item.word) ? ' done' : ''}`;
-        statusLabel.textContent = learned.has(item.word) ? '已練習' : '未練習';
+        const isReview = missed.has(item.word);
+        const statusLabel = document.createElement('span'); statusLabel.className = `vocab-status${learned.has(item.word) && !isReview ? ' done' : ''}`;
+        statusLabel.textContent = isReview ? '答錯・待複習' : learned.has(item.word) ? '答對過' : '未練習';
         const sound = document.createElement('button'); sound.type = 'button'; sound.className = 'vocab-sound'; sound.textContent = '🔊'; sound.setAttribute('aria-label', `播放 ${item.word} 發音`);
         sound.onclick = () => speak(item.word);
         row.append(main, statusLabel, sound); list.appendChild(row);

@@ -24,6 +24,18 @@ test('missed scope includes only words with recorded mistakes', () => {
   assert.deepEqual(Practice.filterWords(words, 'missed', new Set(), missed).map((word) => word.word), ['banana', 'orange']);
 });
 
+test('correct scope excludes new words and words awaiting review', () => {
+  const learned = new Set(['apple', 'banana']);
+  const missed = new Set(['banana']);
+  assert.deepEqual(Practice.filterWords(words, 'correct', learned, missed).map((word) => word.word), ['apple']);
+});
+
+test('status counts are mutually exclusive and include every word', () => {
+  const learned = new Set(['apple', 'banana']);
+  const missed = new Set(['banana']);
+  assert.deepEqual(Practice.countStatuses(words, learned, missed), { new: 1, correct: 1, review: 1 });
+});
+
 test('empty practice scopes return an empty list', () => {
   assert.deepEqual(Practice.filterWords(words, 'missed', new Set(), new Set()), []);
 });
