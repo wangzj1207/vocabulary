@@ -13,8 +13,9 @@
 
 ## 網站部署目標與 CD
 
-- **狀態**：待確認；目前 repository 沒有既有 CD 工作流程或已設定的部署目標。
-- **現況**：本專案是純靜態網頁；已新增 GitHub Actions CI，於 main push 與 Pull Request 執行 JavaScript 和字庫檢查。
-- **推薦**：若要自動公開網站，使用 GitHub Pages，並設定為 CI 通過後才部署 main 分支。
-- **需要決定的原因**：部署會把目前遊戲與詞庫對外發佈至網站，且需確認預期網址及 GitHub Pages 是否為目標；在未確認前先執行 CI，不啟用公開部署。
+- **狀態**：已決定採用 GitHub Pages；使用者於 2026-11-27 明確要求「用 GitHub Action 配合 GitHub Pages 發布」。
+- **發布網址**：<https://wangzj1207.github.io/vocabulary/>。
+- **部署方式**：GitHub Actions 僅在 main push 且 CI 通過後發布；Pull Request 只執行測試。artifact 限定遊戲執行所需檔案，不打包知識文件、測試或工具。
+- **後續驗收**：第一次 workflow 執行後檢查 Pages deploy job，並確認公開首頁與所需 JS 資源可載入；若 repository Pages 尚未啟用，需在 GitHub Settings → Pages 將 Source 設為 GitHub Actions。
+- **詞庫注意事項**：公開部署會提供目前詞庫下載；原始整理檔的中譯再散布授權仍待權利確認，相關推薦與風險見本文件「字庫原始資料的再散布條件」。
 

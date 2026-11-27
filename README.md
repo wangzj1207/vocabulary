@@ -1,6 +1,6 @@
 # Word Garden｜單字花園
 
-面向台灣高中生的英文單字練習網頁。使用瀏覽器開啟 `index.html` 即可遊玩，不需安裝應用程式或啟動伺服器。
+面向台灣高中生的英文單字練習網頁。可直接開啟 [線上遊戲](https://wangzj1207.github.io/vocabulary/) 遊玩，也可在瀏覽器開啟 `index.html`，不需安裝應用程式或啟動伺服器。
 
 ## 功能
 
@@ -27,7 +27,7 @@ node --test tests/*.test.cjs
 python -m unittest discover -s tests
 ```
 
-GitHub Actions 會在推送至 `main` 和 Pull Request 時執行上述檢查。
+GitHub Actions 會在推送至 `main` 和 Pull Request 時執行上述檢查。`main` 的檢查通過後會自動部署到 [GitHub Pages](https://wangzj1207.github.io/vocabulary/)；Pull Request 只執行檢查，不會部署。
 
 ## 比對官方詞表
 
@@ -41,4 +41,4 @@ python tools/compare_vocabulary.py path/to/official-vocabulary.csv --check
 
 ## 部署
 
-目前沒有自動部署流程或託管目標。GitHub Pages 是建議選項；啟用前需先確認網站公開網址及發佈目標，詳見 [`knowledge/decision.md`](knowledge/decision.md)。
+網站由 GitHub Actions 部署到 GitHub Pages。每次 `main` 的 CI 通過後會發布靜態遊戲檔案；遊戲網址為 <https://wangzj1207.github.io/vocabulary/>。workflow 僅上傳遊戲所需檔案，不包含測試、開發工具及知識文件。

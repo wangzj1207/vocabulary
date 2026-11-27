@@ -1,5 +1,25 @@
 # 開發經驗
 
+## 2026-11-27：CI 通過後部署 GitHub Pages
+
+### 經驗
+
+- 純靜態網站可在既有 CI workflow 增加相依部署 job，以 `needs: test` 保證檢查成功後才發佈；部署 job 僅允許 main push 執行，Pull Request 不應公開部署。
+- Pages artifact 應只包含執行所需的 HTML、JS、CSS 與資產；不要直接上傳 repository 根目錄，避免知識文件、測試、資料工具或 Git metadata 被公開為網站內容。
+- GitHub Pages Actions 部署需授予 `pages: write` 與 `id-token: write`，並透過 configure-pages、upload-pages-artifact、deploy-pages 完成發布；每個 workflow/job 僅給需要的權限。
+- workflow 檔案寫入 repository 不代表網站已成功上線；須檢查遠端 Actions 部署結果，再以公開網址驗證首頁與靜態資源。
+
+### 可複用範圍
+
+- 適用於由 HTML/CSS/JavaScript 組成、不需伺服器渲染的靜態網站，可把同一套 CI gate 與 artifact 部署架構移植至其他 GitHub Pages 專案。
+- 對需要建置的前端，可先在部署 job 產生隔離的輸出目錄，再上傳該目錄；保留測試先行與限制發佈分支的規則。
+
+### 本次應用
+
+- 在現有 CI 後新增 Pages deploy job，只在 main push 且 Node/Python 檢查成功時執行；Pull Request 不部署。
+- 僅將遊戲 HTML 與執行模組打包，並加入 `.nojekyll`；將 Pages 網址與部署行為補充到 README 和路線圖。
+- 本次公開網站承載現有詞庫；詞庫來源授權疑點已在決策文件揭露，後續仍需依該決策遷移至授權清楚的資料來源。
+
 ## 2026-11-27：單字掌握狀態與錯題複習範圍
 
 ### 經驗
