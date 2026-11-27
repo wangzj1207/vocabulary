@@ -84,6 +84,7 @@
   <script src="vocabulary.js"></script>
   <script src="wordbook.js"></script>
   <script src="history.js"></script>
+  <script src="review.js"></script>
   <script src="practice.js"></script>
   <script>
     const bank = window.VOCABULARY || [];
@@ -96,6 +97,8 @@
     let learned = new Set(Array.isArray(previousLearned) ? previousLearned : []);
     const previousMissed = readStoredJSON('wordGardenMissed', []);
     let missed = new Set(Array.isArray(previousMissed) ? previousMissed : []);
+    const previousProgress = readStoredJSON('wordGardenProgress', {});
+    let reviewProgress = previousProgress && typeof previousProgress === 'object' && !Array.isArray(previousProgress) ? previousProgress : {};
     let studyHistory = readStoredJSON('wordGardenHistory', { days: {} });
     if (!studyHistory || typeof studyHistory !== 'object' || !studyHistory.days || typeof studyHistory.days !== 'object') studyHistory = { days: {} };
     let wordbookPage = 0;
@@ -103,7 +106,7 @@
     const shuffle = a => [...a].sort(() => Math.random() - .5);
     const pageSize = 50;
     function newRound() {
-      const pool = Practice.filterWords(bank, $('#practiceScope').value, learned, missed);
+      const pool = Practice.filterWords(bank, $('#practiceScope').value, learned, missed, reviewProgress);
       round = shuffle(pool).slice(0, roundSize); index = 0; correct = 0; streak = 0; best = 0; answered = false;
       $('#complete').style.display = 'none'; $('#practiceEmpty').style.display = 'none';
       if (!round.length) {
@@ -143,6 +146,8 @@
       learned.add(item.word); localStorage.setItem('wordGardenLearned', JSON.stringify([...learned]));
       if (right) missed.delete(item.word); else missed.add(item.word);
       localStorage.setItem('wordGardenMissed', JSON.stringify([...missed]));
+      reviewProgress = Review.recordAnswer(reviewProgress, item.word, right);
+      localStorage.setItem('wordGardenProgress', JSON.stringify(reviewProgress));
       recordAnswer(right);
       if (right) {
         correct++; streak++; best = Math.max(best, streak); btn.classList.add('correct');
@@ -175,10 +180,10 @@
       else toast('此瀏覽器暫不支援語音播放');
     };
     function renderWordbook() {
-      const matches = Wordbook.filterWords(bank, $('#wordSearch').value, $('#wordFilter').value, learned, missed);
+      const matches = Wordbook.filterWords(bank, $('#wordSearch').value, $('#wordFilter').value, learned, missed, reviewProgress);
       const page = Wordbook.paginate(matches, wordbookPage, pageSize);
       wordbookPage = page.page;
-      const statusCounts = Practice.countStatuses(bank, learned, missed);
+      const statusCounts = Practice.countStatuses(bank, learned, missed, reviewProgress);
       $('#wordbookCount').textContent = `符合 ${page.total.toLocaleString()} 個 · 未練習 ${statusCounts.new.toLocaleString()} · 答對 ${statusCounts.correct.toLocaleString()} · 錯題待複習 ${statusCounts.review.toLocaleString()}`;
       $('#wordPage').textContent = `${wordbookPage + 1} / ${page.pageCount} 頁`;
       $('#wordPrev').disabled = wordbookPage === 0;
@@ -197,7 +202,7 @@
         line.append(word, pos);
         const meaning = document.createElement('div'); meaning.className = 'vocab-meaning'; meaning.textContent = item.meaning;
         main.append(line, meaning);
-        const isReview = missed.has(item.word);
+        const isReview = Review.isDue(item, reviewProgress, missed);
         const statusLabel = document.createElement('span'); statusLabel.className = `vocab-status${learned.has(item.word) && !isReview ? ' done' : ''}`;
         statusLabel.textContent = isReview ? '答錯・待複習' : learned.has(item.word) ? '答對過' : '未練習';
         const sound = document.createElement('button'); sound.type = 'button'; sound.className = 'vocab-sound'; sound.textContent = '🔊'; sound.setAttribute('aria-label', `播放 ${item.word} 發音`);

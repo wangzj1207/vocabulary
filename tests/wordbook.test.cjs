@@ -2,6 +2,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 
 global.window = global;
+require('../review.js');
 require('../wordbook.js');
 
 const words = [
@@ -41,6 +42,13 @@ test('wordbook can filter words that are correct or awaiting review', () => {
   const missed = new Set(['banana']);
   assert.deepEqual(Wordbook.filterWords(words, '', 'correct', learned, missed).map((word) => word.word), ['apple']);
   assert.deepEqual(Wordbook.filterWords(words, '', 'review', learned, missed).map((word) => word.word), ['banana']);
+});
+
+test('wordbook marks a correct word for review after its due time', () => {
+  const learned = new Set(['apple']);
+  const progress = { apple: { dueAt: 100 } };
+  assert.deepEqual(Wordbook.filterWords(words, '', 'review', learned, new Set(), progress, 100).map((word) => word.word), ['apple']);
+  assert.deepEqual(Wordbook.filterWords(words, '', 'correct', learned, new Set(), progress, 100), []);
 });
 
 test('pagination returns the requested slice and clamps invalid pages', () => {

@@ -1,5 +1,5 @@
 (function (root) {
-  function filterWords(words, query = "", status = "all", learned = new Set(), missed = new Set()) {
+  function filterWords(words, query = "", status = "all", learned = new Set(), missed = new Set(), progress = {}, now = Date.now()) {
     const normalized = query.trim().toLocaleLowerCase();
     return words.filter((word) => {
       const matchesQuery = !normalized
@@ -8,8 +8,8 @@
       const hasPracticed = learned.has(word.word);
       const matchesStatus = status === "all"
         || (status === "learned" ? hasPracticed : status === "new" ? !hasPracticed
-          : status === "correct" ? hasPracticed && !missed.has(word.word)
-            : status === "review" ? missed.has(word.word) : true);
+          : status === "correct" ? hasPracticed && !Review.isDue(word, progress, missed, now)
+            : status === "review" ? Review.isDue(word, progress, missed, now) : true);
       return matchesQuery && matchesStatus;
     });
   }
