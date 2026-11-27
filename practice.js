@@ -13,5 +13,13 @@
     }, { new: 0, correct: 0, incorrect: 0, due: 0 });
   }
 
-  root.Practice = { filterWords, countStatuses };
+  function filterLevel(words, level = 'all') {
+    if (level === 'all') return words;
+    if (level === 'unmapped') return words.filter((word) => !Array.isArray(word.ceecLevels) || word.ceecLevels.length === 0);
+    const selected = Number(level);
+    if (!Number.isInteger(selected) || selected < 1 || selected > 6) return [];
+    return words.filter((word) => Array.isArray(word.ceecLevels) && word.ceecLevels.includes(selected));
+  }
+
+  root.Practice = { filterWords, countStatuses, filterLevel };
 })(window);

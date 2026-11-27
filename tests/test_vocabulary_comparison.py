@@ -1,6 +1,6 @@
 import unittest
 
-from tools.compare_vocabulary import compare_entries, normalize_word, split_headwords
+from tools.compare_vocabulary import compare_entries, expand_official_row, normalize_word, split_headwords
 
 
 class VocabularyComparisonTests(unittest.TestCase):
@@ -9,6 +9,15 @@ class VocabularyComparisonTests(unittest.TestCase):
 
     def test_slash_alternatives_expand_to_individual_headwords(self):
         self.assertEqual(split_headwords("actor / actress"), ["actor", "actress"])
+
+    def test_parenthesized_suffix_uses_its_matching_part_of_speech(self):
+        self.assertEqual(
+            expand_official_row({"word": "agree(ment)", "level": "4", "pos": "v./(n.)"}),
+            [
+                {"word": "agree", "level": "4", "pos": "v."},
+                {"word": "agreement", "level": "4", "pos": "n."},
+            ],
+        )
 
     def test_comparison_reports_missing_extra_pos_and_level_counts(self):
         result = compare_entries(

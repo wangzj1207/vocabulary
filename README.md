@@ -12,7 +12,9 @@
 
 ## 字庫與資料使用
 
-目前包含 5,624 個英文詞條，欄位為英文、詞性、繁體中文釋義及 `marked`。目前字庫整理自 [`mahavivo/english-wordlists`](https://github.com/mahavivo/english-wordlists) 的台灣高中英文參考詞彙整理檔；該整理檔來源說明與再散布授權尚未確認。請先閱讀 [`knowledge/decision.md`](knowledge/decision.md)，不要把公開可下載視為已取得授權。
+目前包含 5,624 個英文詞條，欄位含英文、詞性、繁體中文釋義、`marked`、`ceecLevels` 與 `ceecPos`。後兩欄是依大考中心 111 學年度起適用詞表對照的級別和官方詞性；目前 4,570 筆已對應，1,054 筆未對應，未匹配資料不會被自動判定為錯字或官方擴充詞。
+
+目前字庫整理自 [`mahavivo/english-wordlists`](https://github.com/mahavivo/english-wordlists) 的台灣高中英文參考詞彙整理檔；該整理檔來源說明與再散布授權尚未確認。官方 PDF 允許非營利使用並要求轉載註明出處，因此級別／官方詞性對照會標出官方來源；該條件不代表第三方中文釋義也取得授權。詳見 [`knowledge/decision.md`](knowledge/decision.md)。
 
 大考中心現行參考詞彙表分六級、約 6,000 詞條，並標示非營利使用與轉載註明出處的條件。它不能直接證明第三方整理檔的中文釋義具有相同授權。詳見 [`knowledge/plan.md`](knowledge/plan.md) 的來源說明。
 
@@ -35,7 +37,7 @@ GitHub Actions 會在推送至 `main` 和 Pull Request 時執行上述檢查。
 python tools/compare_vocabulary.py path/to/official-vocabulary.csv --check
 ```
 
-比對工具不會下載或攜帶官方詞表；使用者需自行準備符合授權條件的 CSV。斜線分隔的替代拼法會展開成不同 headword。工具不校對中文釋義，也尚未自動抽取官方 PDF。
+比對工具不會下載或攜帶官方詞表；使用者需自行準備符合授權條件的 CSV。斜線替代拼法及括號詞尾會展開成不同 headword，括號詞尾對應的詞性也分開保存。工具不校對中文釋義，也不自動抽取官方 PDF。
 
 ## 部署
 

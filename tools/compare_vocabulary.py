@@ -7,6 +7,7 @@ not bundle or redistribute the source list; it reports a local comparison.
 import argparse
 import csv
 import json
+import re
 import sys
 import unicodedata
 from collections import Counter
@@ -27,6 +28,18 @@ def normalize_pos(pos):
 
 def split_headwords(value):
     return [part.strip() for part in value.split("/") if part.strip()]
+
+
+def expand_official_row(row):
+    suffix = re.fullmatch(r"(.+?)\(([^()]+)\)", row["word"])
+    if suffix and "/(" in row["pos"]:
+        base_pos, suffix_pos = row["pos"].split("/(", 1)
+        suffix_pos = suffix_pos.rstrip(")")
+        return [
+            {**row, "word": suffix.group(1), "pos": base_pos},
+            {**row, "word": suffix.group(1) + suffix.group(2), "pos": suffix_pos},
+        ]
+    return [{**row, "word": headword} for headword in split_headwords(row["word"])]
 
 
 def load_current(path):
@@ -58,11 +71,12 @@ def compare_entries(official, current):
 
     for row in official:
         level_counts[row["level"]] += 1
-        for headword in split_headwords(row["word"]):
+        for expanded in expand_official_row(row):
+            headword = expanded["word"]
             key = normalize_word(headword)
             if key in official_by_word:
                 duplicate_official.add(headword)
-            official_by_word[key] = {**row, "word": headword}
+            official_by_word[key] = expanded
 
     missing = []
     pos_mismatches = []

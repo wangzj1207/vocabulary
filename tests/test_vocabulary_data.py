@@ -35,11 +35,22 @@ class VocabularyDataTests(unittest.TestCase):
                 self.assertRegex(meaning, r"[\u3400-\u9fff]")
 
     def test_entries_match_the_documented_schema(self):
-        expected_fields = {"word", "pos", "meaning", "marked"}
+        expected_fields = {"word", "pos", "meaning", "marked", "ceecLevels", "ceecPos"}
         for entry in self.words:
             with self.subTest(word=entry.get("word")):
                 self.assertEqual(set(entry), expected_fields)
                 self.assertIsInstance(entry["marked"], bool)
+                levels = entry["ceecLevels"]
+                self.assertIsInstance(levels, list)
+                self.assertEqual(levels, sorted(set(levels)))
+                self.assertTrue(all(isinstance(level, int) and 1 <= level <= 6 for level in levels))
+                self.assertIsInstance(entry["ceecPos"], list)
+                self.assertEqual(bool(levels), bool(entry["ceecPos"]))
+
+    def test_official_level_mapping_is_present_and_unmatched_words_remain_unclassified(self):
+        matched = [entry for entry in self.words if entry["ceecLevels"]]
+        self.assertEqual(len(matched), 4570)
+        self.assertTrue(all(entry["ceecLevels"] for entry in matched))
 
     def test_meanings_do_not_start_with_leftover_pos_markers(self):
         marker = re.compile(r"^\s*/?\s*(?:n|v|adj|adv|prep|conj|pron|art|aux|int|num|phr|prop)\s*\.", re.I)

@@ -46,3 +46,15 @@ test('correct scope excludes words whose review interval has expired', () => {
 test('empty practice scopes return an empty list', () => {
   assert.deepEqual(Practice.filterWords(words, 'missed', new Set(), new Set()), []);
 });
+
+test('level filtering selects official levels and keeps unmapped entries separate', () => {
+  const levels = [
+    { word: 'apple', ceecLevels: [1] },
+    { word: 'banana', ceecLevels: [2, 3] },
+    { word: 'orange', ceecLevels: [] },
+  ];
+  assert.deepEqual(Practice.filterLevel(levels, 'all'), levels);
+  assert.deepEqual(Practice.filterLevel(levels, '2').map((word) => word.word), ['banana']);
+  assert.deepEqual(Practice.filterLevel(levels, 'unmapped').map((word) => word.word), ['orange']);
+  assert.deepEqual(Practice.filterLevel(levels, '7'), []);
+});
