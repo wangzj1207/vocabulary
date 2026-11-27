@@ -8,8 +8,10 @@
       const hasPracticed = learned.has(word.word);
       const matchesStatus = status === "all"
         || (status === "learned" ? hasPracticed : status === "new" ? !hasPracticed
-          : status === "correct" ? hasPracticed && !Review.isDue(word, progress, missed, now)
-            : status === "review" ? Review.isDue(word, progress, missed, now) : true);
+          : status === "correct" ? Review.statusFor(word, learned, progress, missed, now) === "correct"
+            : status === "incorrect" ? Review.statusFor(word, learned, progress, missed, now) === "incorrect"
+              : status === "due" ? Review.statusFor(word, learned, progress, missed, now) === "due"
+                : status === "review" ? Review.isDue(word, progress, missed, now) : true);
       return matchesQuery && matchesStatus;
     });
   }

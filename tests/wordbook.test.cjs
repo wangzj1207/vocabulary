@@ -51,6 +51,17 @@ test('wordbook marks a correct word for review after its due time', () => {
   assert.deepEqual(Wordbook.filterWords(words, '', 'correct', learned, new Set(), progress, 100), []);
 });
 
+test('wordbook separates incorrect answers from correct answers that are due', () => {
+  const learned = new Set(['apple', 'banana']);
+  const missed = new Set(['banana']);
+  const progress = {
+    apple: { attempts: 1, lastResult: 'correct', dueAt: 100 },
+    banana: { attempts: 1, lastResult: 'incorrect', dueAt: 50 },
+  };
+  assert.deepEqual(Wordbook.filterWords(words, '', 'due', learned, missed, progress, 100).map((word) => word.word), ['apple']);
+  assert.deepEqual(Wordbook.filterWords(words, '', 'incorrect', learned, missed, progress, 100).map((word) => word.word), ['banana']);
+});
+
 test('pagination returns the requested slice and clamps invalid pages', () => {
   const items = Array.from({ length: 123 }, (_, index) => index);
   const last = Wordbook.paginate(items, 9, 50);

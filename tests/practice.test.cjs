@@ -34,7 +34,7 @@ test('correct scope excludes new words and words awaiting review', () => {
 test('status counts are mutually exclusive and include every word', () => {
   const learned = new Set(['apple', 'banana']);
   const missed = new Set(['banana']);
-  assert.deepEqual(Practice.countStatuses(words, learned, missed), { new: 1, correct: 1, review: 1 });
+  assert.deepEqual(Practice.countStatuses(words, learned, missed), { new: 1, correct: 1, incorrect: 1, due: 0 });
 });
 
 test('correct scope excludes words whose review interval has expired', () => {

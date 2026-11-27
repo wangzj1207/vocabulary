@@ -64,7 +64,7 @@
         </section>
         <section class="game-card wordbook-view" id="wordbook" aria-label="單字本">
           <div class="wordbook-heading"><div><div class="eyebrow">YOUR VOCABULARY</div><h2>我的單字本</h2></div><div class="wordbook-total" id="wordbookCount"></div></div>
-          <div class="wordbook-toolbar"><input id="wordSearch" type="search" placeholder="搜尋英文單字或中文意思…" aria-label="搜尋單字本"><select id="wordFilter" aria-label="篩選單字"><option value="all">全部單字</option><option value="new">尚未練習</option><option value="correct">答對過</option><option value="review">待複習</option></select></div>
+          <div class="wordbook-toolbar"><input id="wordSearch" type="search" placeholder="搜尋英文單字或中文意思…" aria-label="搜尋單字本"><select id="wordFilter" aria-label="篩選單字"><option value="all">全部單字</option><option value="new">尚未練習</option><option value="correct">答對、未到期</option><option value="incorrect">答錯</option><option value="due">複習到期</option></select></div>
           <div class="wordbook-list" id="wordbookList" aria-live="polite"></div>
           <div class="wordbook-pagination"><button id="wordPrev" type="button">← 上一頁</button><span id="wordPage"></span><button id="wordNext" type="button">下一頁 →</button></div>
         </section>
@@ -182,7 +182,7 @@
       const page = Wordbook.paginate(matches, wordbookPage, pageSize);
       wordbookPage = page.page;
       const statusCounts = Practice.countStatuses(bank, learned, missed, reviewProgress);
-      $('#wordbookCount').textContent = `符合 ${page.total.toLocaleString()} 個 · 未練習 ${statusCounts.new.toLocaleString()} · 答對 ${statusCounts.correct.toLocaleString()} · 錯題待複習 ${statusCounts.review.toLocaleString()}`;
+      $('#wordbookCount').textContent = `符合 ${page.total.toLocaleString()} 個 · 未練習 ${statusCounts.new.toLocaleString()} · 答對 ${statusCounts.correct.toLocaleString()} · 答錯 ${statusCounts.incorrect.toLocaleString()} · 到期 ${statusCounts.due.toLocaleString()}`;
       $('#wordPage').textContent = `${wordbookPage + 1} / ${page.pageCount} 頁`;
       $('#wordPrev').disabled = wordbookPage === 0;
       $('#wordNext').disabled = wordbookPage >= page.pageCount - 1;
@@ -200,9 +200,9 @@
         line.append(word, pos);
         const meaning = document.createElement('div'); meaning.className = 'vocab-meaning'; meaning.textContent = item.meaning;
         main.append(line, meaning);
-        const isReview = Review.isDue(item, reviewProgress, missed);
-        const statusLabel = document.createElement('span'); statusLabel.className = `vocab-status${learned.has(item.word) && !isReview ? ' done' : ''}`;
-        statusLabel.textContent = isReview ? '答錯・待複習' : learned.has(item.word) ? '答對過' : '未練習';
+        const status = Review.statusFor(item, learned, reviewProgress, missed);
+        const statusLabel = document.createElement('span'); statusLabel.className = `vocab-status${status === 'correct' ? ' done' : ''}`;
+        statusLabel.textContent = ({ new: '未練習', correct: '答對・未到期', incorrect: '答錯', due: '複習到期' })[status];
         const sound = document.createElement('button'); sound.type = 'button'; sound.className = 'vocab-sound'; sound.textContent = '🔊'; sound.setAttribute('aria-label', `播放 ${item.word} 發音`);
         sound.onclick = () => speak(item.word);
         row.append(main, statusLabel, sound); list.appendChild(row);

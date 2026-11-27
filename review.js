@@ -13,6 +13,15 @@
     return words.filter((word) => isDue(word, progress, missed, now));
   }
 
+  function statusFor(word, learned = new Set(), progress = {}, missed = new Set(), now = Date.now()) {
+    const key = typeof word === 'string' ? word : word.word;
+    const record = progress[key];
+    if (!learned.has(key) && !record?.attempts && !missed.has(key)) return 'new';
+    if (missed.has(key) || record?.lastResult === 'incorrect') return 'incorrect';
+    if (isDue(key, progress, missed, now)) return 'due';
+    return 'correct';
+  }
+
   function recordAnswer(progress, word, correct, now = Date.now()) {
     const previous = progress[word] || {};
     const streak = correct
@@ -33,5 +42,5 @@
     };
   }
 
-  root.Review = { isDue, filterDue, recordAnswer };
+  root.Review = { isDue, filterDue, statusFor, recordAnswer };
 })(window);
